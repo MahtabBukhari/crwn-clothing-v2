@@ -2,7 +2,7 @@ const App = () => {
   return (
     <div className='categories-container'>
       <div className='category-container'>
-        {/* <img /> */}
+        {/* <img />  better*/}
         <div className='category-body-container'>
           <h2>Hats</h2>
           <p>Shop Now</p>
