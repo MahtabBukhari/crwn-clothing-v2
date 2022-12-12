@@ -1,40 +1,59 @@
 import React, { useState } from "react";
-import { createAuthUserWithEmailAndPassword, createUserDocumentfromAuth, SignInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utiles/firebase/firebase.utiles";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentfromAuth,
+  SignInAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
+} from "../../utiles/firebase/firebase.utiles";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
-import './sign-in-form.styles.scss'
+import "./sign-in-form.styles.scss";
 
-const defaultFormFiels = {
-  
+const defaultFormFields = {
   email: "",
   password: "",
- 
 };
 
 const SignInForm = () => {
-  const [formFields, setFormFields] = useState(defaultFormFiels);
-  const {  email, password } = formFields;
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { email, password } = formFields;
 
+  {
+    /*after submition the form do form fields empty */
+  }
   const resetFormFields = () => {
-    setFormFields(defaultFormFiels)
-  }
+    setFormFields(defaultFormFields);
+  };
 
-  const signInWithGoogle=async()=>{
-        
-    const response = await signInWithGooglePopup()
-     await createUserDocumentfromAuth(response.user)
+  {
+    /*sign in with google popup*/
   }
+  const signInWithGoogle = async () => {
+    const response = await signInWithGooglePopup();
+    await createUserDocumentfromAuth(response.user);
+  };
 
   const submitHandler = async (event) => {
     event.preventDefault();
 
     try {
-     const signInResponse = await SignInAuthUserWithEmailAndPassword(email,password)
-     console.log(signInResponse)
-      resetFormFields()
+      const signInResponse = await SignInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      console.log(signInResponse);
+      resetFormFields();
     } catch (error) {
-      if (error.code === 'auth/wrong-password') return alert('wrong email or password')
-      console.log('signInError', error)
+      switch (error.code) {
+        case "auth/wrong-password":
+          return alert("Invalid email or password");
+          break;
+        case "auth/user-not-found":
+          return alert("Invalid email or password");
+          break;
+        default:
+          console.log(error);
+      }
     }
   };
 
@@ -47,28 +66,28 @@ const SignInForm = () => {
       <h2>Already have an account?</h2>
       <span>Sign in with email and password</span>
       <form onSubmit={submitHandler}>
-
-      <FormInput
-      label="Email"
-      type="email"
-      name="email"
-      value={email}
-      onChange={handleChange}
-      required
-      />
-      <FormInput
-      label="Password"
-      type="password"
-      name="password"
-      value={password}
-      onChange={handleChange}
-      required
-      />
-      <div className="buttons-container">
-      <Button >Sign in</Button>
-      <Button buttonType='google' onClick={signInWithGoogle}>Sign in with google</Button>
-      
-      </div>
+        <FormInput
+          label="Email"
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+          required
+        />
+        <FormInput
+          label="Password"
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          required
+        />
+        <div className="buttons-container">
+          <Button type="submit">Sign in</Button>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
+            Google Sign In
+          </Button>
+        </div>
       </form>
     </div>
   );
