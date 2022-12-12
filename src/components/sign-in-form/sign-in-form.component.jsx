@@ -6,6 +6,7 @@ import {
   signInWithGooglePopup,
 } from "../../utiles/firebase/firebase.utiles";
 import Button from "../button/button.component";
+import { UseContext } from "../context/context.component";
 import FormInput from "../form-input/form-input.component";
 import "./sign-in-form.styles.scss";
 
@@ -17,7 +18,8 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
-
+  const {setCurrentUser}= UseContext()
+  
   {
     /*after submition the form do form fields empty */
   }
@@ -37,11 +39,12 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const signInResponse = await SignInAuthUserWithEmailAndPassword(
+      const {user}= await SignInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(signInResponse);
+     
+      setCurrentUser(user)
       resetFormFields();
     } catch (error) {
       switch (error.code) {
