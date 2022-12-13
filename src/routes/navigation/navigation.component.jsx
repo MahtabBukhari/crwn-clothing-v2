@@ -20,7 +20,7 @@ const Navigation = () => {
             Shope
           </Link>
           {currentUser ? (
-            <Link className="nav-link" to="/auth" onClick={SignOutUser}>
+            <Link className="nav-link" to='/' onClick={SignOutUser}>
               Sign Out
             </Link>
           ) : (
