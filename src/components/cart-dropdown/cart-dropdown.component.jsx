@@ -3,6 +3,7 @@ import './cart-dropdown.styles.scss'
 import React from 'react'
 import Button from '../button/button.component'
 import { UseCartContext } from '../context/cart.context'
+import CartItems from '../cart-item/cart-item.component'
 
 const CartDropdown = () => {
     const {cartItems}=UseCartContext()
@@ -11,13 +12,9 @@ const CartDropdown = () => {
     <div className='cart-items'>
 
     {
-        cartItems.map(cartItems =>{
-            const{id,name,quantity} =cartItems
-           return <div key={id}>
-           <h1>{name}</h1>
-           <span>{quantity}</span>
-           </div>
-        })
+        cartItems.map(cartItem =>(
+          <CartItems key={cartItem.id} cartItem={cartItem} />
+        ))
     }
     
     </div>
