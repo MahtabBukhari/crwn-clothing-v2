@@ -23,15 +23,15 @@ const Navigation = () => {
         </Link>
         <div className="nav-links-container">
           <Link className="nav-link" to="/shop">
-            Shop
+            SHOP
           </Link>
           {currentUser ? (
             <Link className="nav-link" to='/' onClick={SignOutUser}>
-              Sign Out
+              SIGN OUT
             </Link>
           ) : (
             <Link className="nav-link" to="/auth">
-              Sign In
+              SIGN IN
             </Link>
           )}
           <CartIcon/>
