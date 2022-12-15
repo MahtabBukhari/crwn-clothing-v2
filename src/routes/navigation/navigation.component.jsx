@@ -7,8 +7,11 @@ import { UseCartContext } from "../../components/context/cart.context";
 import { UseContext } from "../../components/context/user.context";
 import { SignOutUser } from "../../utiles/firebase/firebase.utiles";
 
+//styled-component styles is used for more accurate and to avoid human error and also css and sass class name clashes
+import { LogoContainer, NavigationContainer, NavLink, NavLinksContainer } from "./navigation.styles";
 
-import "./navigation.styles.scss";
+
+
 
 const Navigation = () => {
   const { currentUser } = UseContext();
@@ -17,30 +20,30 @@ const Navigation = () => {
 
   return (
     <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
+      <NavigationContainer>
+        <LogoContainer to="/">
           <CrownLogo />
-        </Link>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
+        </LogoContainer>
+        <NavLinksContainer>
+          <NavLink to="/shop">
             SHOP
-          </Link>
+          </NavLink>
           {currentUser ? (
-            <Link className="nav-link" to='/' onClick={SignOutUser}>
+            <NavLink as='span' onClick={SignOutUser}>
               SIGN OUT
-            </Link>
+            </NavLink>
           ) : (
-            <Link className="nav-link" to="/auth">
+            <NavLink to="/auth">
               SIGN IN
-            </Link>
+            </NavLink>
           )}
           <CartIcon/>
-        </div>
+        </NavLinksContainer>
         {
           isCartOpen && <CartDropdown/> 
         }
         
-      </div>
+      </NavigationContainer>
       <Outlet />{" "}
       {/*Outlet component is define in the parent routing component */}
     </Fragment>
