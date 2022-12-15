@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc,collection,writeBatch } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc,collection,writeBatch, getDocs, query } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4KbRS-W4KgZME0xCUe-fOqUJ6-oUVgsw",
@@ -51,9 +51,35 @@ export const addCollectionAndDocuments = async (collectionKey, objectToAdd)=>{
 
   })
   await batch.commit();
-  console.log('done')
 }
 
+
+
+//fetch data from the firebase database
+export const getCollectionsAndDocuments=async()=>{
+  //first access the collection references
+  const collectionRef = collection(db,'categories');
+  // then query on that collection refreference
+  const q = query(collectionRef)
+  //then fetch the document on the base of query
+  const querySnapshot = await getDocs(q)
+
+  // here reduce method is used to fetch each category data and put it into object with respective categories name and return that object 
+ const categoryMap= querySnapshot.docs.reduce((acc, docSnapShot)=>{
+
+    const {title, items} = docSnapShot.data()
+
+       //put each item list to respective category name in object
+    acc[title.toLowerCase()] = items;
+
+    return acc;
+
+
+  },{});
+
+return categoryMap;
+
+}
 
 
 
