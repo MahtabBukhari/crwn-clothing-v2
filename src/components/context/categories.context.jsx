@@ -13,7 +13,7 @@ export const CategoriesContextProvider =({children})=>{
        const getCategoriesMap =async()=>{
         
            const gategoryMap = await getCollectionsAndDocuments()
-           console.log(gategoryMap)
+          
            setCategoriesMap(gategoryMap)
         }
         getCategoriesMap()
