@@ -1,4 +1,4 @@
-import './category-preview.styles.scss';
+import {CategoryPreviewContainer} from './category-preview.styles';
 
 import React from 'react'
 import ProductCard from '../product-card/product-card.component';
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const CategoryPreview = ({title, products}) => {
   return (
-    <div className='category-preview-container'>
+    <CategoryPreviewContainer>
     <h2><Link className='title' to={title}>{title}</Link></h2>
     <div className='preview'>
     {
@@ -17,7 +17,7 @@ const CategoryPreview = ({title, products}) => {
     </div>
 
     
-    </div>
+    </CategoryPreviewContainer>
   )
 }
 

@@ -1,4 +1,4 @@
-import './category.styles.scss';
+import {CategoryRouteContainer,RouteTitle} from'./category.styles';
 
 import React, { useEffect, useState } from 'react'
 import { UseCategoriesContext } from '../../components/context/categories.context';
@@ -17,9 +17,9 @@ const Category = () => {
   return (
     <>
     
-    <div className='route-title'>{category.toUpperCase()}</div>
+    <RouteTitle>{category.toUpperCase()}</RouteTitle>
     
-    <div className='category-route-container'>
+    <CategoryRouteContainer>
 
     {
         products?.map(product=>(
@@ -27,7 +27,7 @@ const Category = () => {
         ))
     }
     
-    </div>
+    </CategoryRouteContainer>
     </>
   )
 }

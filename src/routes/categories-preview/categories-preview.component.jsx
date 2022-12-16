@@ -1,4 +1,4 @@
-import './categories-preview.styles.scss';
+
 import React from "react";
 
 import CategoryPreview from "../../components/category-preview/category-preview.component";
@@ -10,7 +10,7 @@ const CategoriesPreview = () => {
     const { categoriesMap } = UseCategoriesContext();
 
     return (
-      <div className="product-container">
+      <div>
         {Object.keys(categoriesMap).map((title) => {
           const products = categoriesMap[title]
         return <CategoryPreview key={title} title={title} products={products}/>

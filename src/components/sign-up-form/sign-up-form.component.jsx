@@ -3,7 +3,7 @@ import { createAuthUserWithEmailAndPassword, createUserDocumentfromAuth } from "
 import Button, { BUTTONTYPE_OF_CLASSES } from "../button/button.component";
 
 import FormInput from "../form-input/form-input.component";
-import './sign-up-form.styles.scss'
+import {FormContainer} from './sign-up-form.styles'
 
 const defaultFormFiels = {
   displayName: "",
@@ -44,7 +44,7 @@ const SignUpForm = () => {
     setFormFields({ ...formFields, [name]: value });
   };
   return (
-    <div className="form-container">
+    <FormContainer>
       <h2>Don't have an account?</h2>
       <span>Sign Up with email and password</span>
       <form onSubmit={submitHandler}>
@@ -85,7 +85,7 @@ const SignUpForm = () => {
 
         <Button buttonType={BUTTONTYPE_OF_CLASSES.base} type="submit">Sign Up</Button>
       </form>
-    </div>
+    </FormContainer>
   );
 };
 
