@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const addToCart = (cartItems, productToAdd) => {
   //Find that is cartItems contains the productToAdd
@@ -67,31 +67,76 @@ const CartContext = createContext({
   cartCount: 0,
 });
 
+const cartConstantTypes={
+  SET_CART_ITEMS:'SET_CART_ITEMS',
+  SET_CART_OPEN:"SET_CART_OPEN"
+}
+
+const cartReducer =(state,action)=>{
+  const {type,payload}= action
+  switch(type){
+
+  case cartConstantTypes.SET_CART_ITEMS:
+    return {
+      ...state,
+      ...payload
+    }
+    case cartConstantTypes.SET_CART_OPEN:
+      return{
+        ...state,
+        isCartOpen:payload
+      }
+    
+    default:
+      throw new Error('type is not defined in cartReducer')
+
+  }
+}
+
+
+const intialState={
+  isCartOpen:false,
+  cartItems:[],
+  cartCount:0,
+  totalAmountCount:0,
+}
+
 export const CartContextProvider = ({ children }) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
-  const [totalAmountCount, setTotalAmountCount] = useState(0);
+  
+  const [state,dispatch]=useReducer(cartReducer,intialState)
+  const {cartItems, cartCount,totalAmountCount,isCartOpen}=state
 
-  useEffect(() => {
-    setCartCount(cartItems.reduce((total, item) => total + item.quantity, 0));
-  }, [cartItems]);
+  
+  const updateCartItems = (cartItems)=>{
+ const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+ const totalAmountCount= cartItems.reduce((totalAmount, item) => totalAmount + item.quantity * item.price, 0);
 
-  useEffect(()=>{
-    setTotalAmountCount(cartItems.reduce((totalAmount, item) => totalAmount + item.quantity * item.price, 0));
+const cartValue = {
+  cartCount,
+  totalAmountCount,
+  cartItems
+}
 
-  },[cartItems])
+dispatch({type:cartConstantTypes.SET_CART_ITEMS, payload:cartValue})
+
+}
+
+const setIsCartOpen=(bool)=>{
+
+  dispatch({type:cartConstantTypes.SET_CART_OPEN,payload:bool})
+
+}
 
   //That is the function which is used to catch the product from productCard and add it to the cartItems
   const addItemsToCart = (productToAdd) => {
-    setCartItems(addToCart(cartItems, productToAdd));
+    updateCartItems(addToCart(cartItems, productToAdd));
   };
   const removeItemsFromCart = (removeCartItem) => {
-    setCartItems(removeFromCart(cartItems, removeCartItem));
+    updateCartItems(removeFromCart(cartItems, removeCartItem));
   };
 
   const deleteItemFromCart = (deleteCartItem) => {
-    setCartItems(deleteFromCart(cartItems, deleteCartItem));
+    updateCartItems(deleteFromCart(cartItems, deleteCartItem));
   }
 
   const value = {
