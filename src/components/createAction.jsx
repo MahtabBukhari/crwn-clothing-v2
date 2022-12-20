@@ -1,0 +1,1 @@
+export const createAction =(actionType,actionPayload)=>({type:actionType,payload:actionPayload});

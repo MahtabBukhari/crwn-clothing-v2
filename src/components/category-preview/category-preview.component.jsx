@@ -15,8 +15,6 @@ const CategoryPreview = ({title, products}) => {
         ))
     }
     </div>
-
-    
     </CategoryPreviewContainer>
   )
 }
