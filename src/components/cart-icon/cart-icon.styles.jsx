@@ -15,7 +15,6 @@ cursor: pointer;
 export const ShoppingBagIcon = styled(ShopingBag)`
 width: 24px;
 height: 24px;
-}
 `
 
 export const ItemCount = styled.span`

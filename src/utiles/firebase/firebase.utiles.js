@@ -63,21 +63,7 @@ export const getCollectionsAndDocuments=async()=>{
   const q = query(collectionRef)
   //then fetch the document on the base of query
   const querySnapshot = await getDocs(q)
-
-  // here reduce method is used to fetch each category data and put it into object with respective categories name and return that object 
- const categoryMap= querySnapshot.docs.reduce((acc, docSnapShot)=>{
-
-    const {title, items} = docSnapShot.data()
-
-       //put each item list to respective category name in object
-    acc[title.toLowerCase()] = items;
-
-    return acc;
-
-
-  },{});
-
-return categoryMap;
+  return querySnapshot.docs.map(docSnapShot=>docSnapShot.data());
 
 }
 
