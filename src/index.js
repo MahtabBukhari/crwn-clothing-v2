@@ -4,7 +4,7 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { CartContextProvider } from "./components/context/cart.context";
+
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 ReactDOM.render(
@@ -13,9 +13,9 @@ ReactDOM.render(
     <BrowserRouter>
      
       
-          <CartContextProvider>
+          
             <App />
-          </CartContextProvider>
+       
       
      
     </BrowserRouter>
