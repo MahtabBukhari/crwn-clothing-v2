@@ -1,27 +1,18 @@
 
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import {useSelector } from "react-redux";
 
 import CategoryPreview from "../../components/category-preview/category-preview.component";
-import { setCategoriesAction } from "../../store/categories/categories.action";
+
 import { selectCategoriesMap } from "../../store/categories/categories.selector";
 
-import { getCollectionsAndDocuments } from "../../utiles/firebase/firebase.utiles";
 
 
 
 const CategoriesPreview = () => {
   const categoriesMap = useSelector(selectCategoriesMap)
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    const getCategories =async()=>{
-     
-        const gategoriesArray = await getCollectionsAndDocuments()
-      
-       dispatch( setCategoriesAction(gategoriesArray))
-     }
-     getCategories()
- },[])
+
+
 
   
 
