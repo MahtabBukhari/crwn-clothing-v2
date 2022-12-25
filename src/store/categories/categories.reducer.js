@@ -22,7 +22,8 @@ export const categoriesReducer = (state=initialState, action)=>{
         case SET_CATEGORIES_TYPES.FETCH_CATEGORIES_SUCCESS:
             return {
                 ...state,
-                categories:payload
+                categories:payload,
+                isLoading:false
             }
         case SET_CATEGORIES_TYPES.FETCH_CATEGORIES_FAILED:
             return{
