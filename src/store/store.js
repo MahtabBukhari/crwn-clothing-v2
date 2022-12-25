@@ -7,7 +7,8 @@ import storage from 'redux-persist/lib/storage'
 const persistConfig={
     key:'root',
     storage,
-    blackList:['user']
+    // blackList:['user']    instead of blocking one or more state to store in the local storage
+    whitelist:['cart'] // we allow only the one or more state to store in the local storage that needs it
 }
 
 
