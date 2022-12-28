@@ -5,6 +5,7 @@ import React from "react";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import { useSelector } from "react-redux";
 import { selectCartItems, selectCartTotal } from "../../store/cart/cart.selector";
+import PaymentStripe from "../../components/payment-stripe/payment-stripe.compoent";
 
 const Checkout = () => {
   const  cartItems = useSelector(selectCartItems);
@@ -39,6 +40,8 @@ const Checkout = () => {
       ))}
 
       <TotalAmount>Total: ${totalAmount}</TotalAmount>
+
+      <PaymentStripe/>
     </CheckoutContainer>
   );
 };
