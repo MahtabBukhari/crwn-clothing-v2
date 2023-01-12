@@ -16,7 +16,7 @@ const paymentIntent = await stripe.paymentIntents.create({
 
 return{
     statusCode:200,
-    body:JSON.stringify(paymentIntent)
+    body:JSON.stringify({paymentIntent})
 }
 
     
